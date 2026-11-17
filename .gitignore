@@ -401,15 +401,10 @@ MigrationBackup/
 FodyWeavers.xsd
 
 # VS Code workspace configuration
-/.vscode/
-!/.vscode/
-/.vscode/*
-!/.vscode/launch.json
-!/.vscode/tasks.json
-!/.vscode/c_cpp_properties.json
+.vscode/
 
 # Compiled executables
-/bin/*.exe
+*.exe
 
 # Local History for Visual Studio Code
 .history/
