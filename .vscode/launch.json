@@ -1,0 +1,29 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug Data_csv",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}\\bin\\Data_csv.exe",
+            "args": [
+                "${input:csvPath}"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "miDebuggerPath": "C:\\msys64\\ucrt64\\bin\\gdb.exe",
+            "preLaunchTask": "Build Data_csv"
+        }
+    ],
+    "inputs": [
+        {
+            "id": "csvPath",
+            "type": "promptString",
+            "description": "Chemin du fichier CSV",
+            "default": "test.csv"
+        }
+    ]
+}
