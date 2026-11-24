@@ -47,3 +47,16 @@ Vehicule *ajouterVehicule(Vehicule *liste, int id, char *purpose) {
     n->suivant = liste;
     return n;
 }
+
+Accident *creerAccident(int year, int collision_id) {
+    Accident *n = malloc(sizeof(Accident));
+    if (n == NULL)
+        return NULL;
+    n->year = year;
+    n->collision_id = collision_id;
+    n->hauteur = 1;
+    n->vehicules = NULL;
+    n->gauche = NULL;
+    n->droite = NULL;
+    return n;
+}
