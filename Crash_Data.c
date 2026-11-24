@@ -36,3 +36,14 @@ Victime *ajouterVictime(Victime *liste,int age,char *gender,char *severity){
         n->suivant=liste;
         return n;
 }
+
+Vehicule *ajouterVehicule(Vehicule *liste, int id, char *purpose) {
+    Vehicule *n = malloc(sizeof(Vehicule));
+    if (n == NULL)
+        return liste;
+    n->vehicule_id = id;
+    n->purpose = strdup(purpose);
+    n->victimes = NULL;
+    n->suivant = liste;
+    return n;
+}
