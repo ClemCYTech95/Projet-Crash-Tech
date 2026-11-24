@@ -24,3 +24,15 @@ typedef struct Accident{
     struct Accident *fd;
     int equilibre;
 }Accident;
+
+
+Victime *ajouterVictime(Victime *liste,int age,char *gender,char *severity){
+    Victime *n=malloc(sizeof(Victime));
+        if (n==NULL)
+            return liste;
+        n->age=age;
+        n->gender=strdup(gender);
+        n->severity=strdup(severity);
+        n->suivant=liste;
+        return n;
+}
