@@ -54,6 +54,7 @@ Accident *creerAccident(int year, int collision_id) {
         return NULL;
     n->year = year;
     n->collision_id = collision_id;
+    n->cle = year * 1000000LL + collision_id;
     n->hauteur = 1;
     n->vehicules = NULL;
     n->gauche = NULL;
@@ -62,16 +63,11 @@ Accident *creerAccident(int year, int collision_id) {
 }
 
 int comparerAccidents(Accident *a, Accident *b) {
-    if (a->year < b->year)
+    if (a->cle < b->cle)
         return -1;
-    if (a->year > b->year)
+    if (a->cle > b->cle)
         return 1;
-    if (a->collision_id < b->collision_id)
-        return -1;
-    if (a->collision_id > b->collision_id)
-        return 1;
-    return 0;
-}
+return 0;
 
 Accident *insererAccident(Accident *a, Accident *nouveau) {
     if (a == NULL)
