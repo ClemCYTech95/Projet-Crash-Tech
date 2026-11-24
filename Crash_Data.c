@@ -60,3 +60,28 @@ Accident *creerAccident(int year, int collision_id) {
     n->droite = NULL;
     return n;
 }
+
+int comparerAccidents(Accident *a, Accident *b) {
+    if (a->year < b->year)
+        return -1;
+    if (a->year > b->year)
+        return 1;
+    if (a->collision_id < b->collision_id)
+        return -1;
+    if (a->collision_id > b->collision_id)
+        return 1;
+    return 0;
+}
+
+Accident *insererAccident(Accident *a, Accident *nouveau) {
+    if (a == NULL)
+        return nouveau;
+    int comparaison = comparerAccidents(nouveau, a);
+    if (comparaison < 0)
+        a->gauche = insererAccident(a->gauche, nouveau);
+    else if (comparaison > 0)
+        a->droite = insererAccident(a->droite, nouveau);
+    else
+        return a;
+    return a;
+}
