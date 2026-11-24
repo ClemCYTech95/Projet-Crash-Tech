@@ -18,7 +18,7 @@ typedef struct Vehicule{
 
 
 typedef struct Accident{
-    long long id;
+    long long cle;
     struct Vehicule *vehicules;
     struct Accident *fg;
     struct Accident *fd;
