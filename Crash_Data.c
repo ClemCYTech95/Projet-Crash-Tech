@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 typedef struct Victime{
     int age;
-    int gender;
-    int severity;
+    char *gender;
+    char *severity;
     struct Victime *suivant;
 }Victime;
 
@@ -17,13 +18,15 @@ typedef struct Vehicule{
 }Vehicule;
 
 
-typedef struct Accident{
+typedef struct Accident {
     long long cle;
+    int year;
+    int collision_id;
+    int hauteur;
     struct Vehicule *vehicules;
-    struct Accident *fg;
-    struct Accident *fd;
-    int equilibre;
-}Accident;
+    struct Accident *gauche;
+    struct Accident *droite;
+} Accident;
 
 
 Victime *ajouterVictime(Victime *liste,int age,char *gender,char *severity){
