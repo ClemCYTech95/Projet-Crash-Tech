@@ -78,14 +78,14 @@ int comparerAccidents(Accident *a, Accident *b) {
 }
 
 
-Accident *insererAccident(Accident *a, Accident *nouveau) {
+Accident *insererAccident(Accident *a, Accident *n) {
     if (a == NULL)
-        return nouveau;
-    int comparaison = comparerAccidents(nouveau, a);
+        return n;
+    int comparaison = comparerAccidents(n, a);
     if (comparaison < 0)
-        a->gauche = insererAccident(a->gauche, nouveau);
+        a->gauche = insererAccident(a->gauche, n);
     else if (comparaison > 0)
-        a->droite = insererAccident(a->droite, nouveau);
+        a->droite = insererAccident(a->droite, n);
     else
         return a;
     return a;
