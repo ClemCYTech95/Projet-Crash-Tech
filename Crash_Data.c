@@ -29,7 +29,7 @@ typedef struct Accident{
 }Accident;
 
 
-Victime *ajouterVictime(Victime *liste, int age, int gender, int severity) {
+Victime *ajouterVictime(Victime *liste, int age, int gender, int severity){
     Victime *n = malloc(sizeof(Victime));
     if (n == NULL)
         return liste;
@@ -41,7 +41,7 @@ Victime *ajouterVictime(Victime *liste, int age, int gender, int severity) {
 }
 
 
-Vehicule *ajouterVehicule(Vehicule *liste, int id, int purpose) {
+Vehicule *ajouterVehicule(Vehicule *liste, int id, int purpose){
     Vehicule *n = malloc(sizeof(Vehicule));
     if (n == NULL)
         return liste;
@@ -53,7 +53,7 @@ Vehicule *ajouterVehicule(Vehicule *liste, int id, int purpose) {
 }
 
 
-Accident *creerAccident(int year, int collision_id) {
+Accident *creerAccident(int year, int collision_id){
     Accident *n = malloc(sizeof(Accident));
     if (n == NULL)
         return NULL;
@@ -64,12 +64,11 @@ Accident *creerAccident(int year, int collision_id) {
     n->vehicules = NULL;
     n->gauche = NULL;
     n->droite = NULL;
-
     return n;
 }
 
 
-int comparerAccidents(Accident *a, Accident *b) {
+int comparerAccidents(Accident *a, Accident *b){
     if (a->cle < b->cle)
         return -1;
     if (a->cle > b->cle)
@@ -78,7 +77,7 @@ int comparerAccidents(Accident *a, Accident *b) {
 }
 
 
-Accident *insererAccident(Accident *a, Accident *n) {
+Accident *insererAccident(Accident *a, Accident *n){
     if (a == NULL)
         return n;
     int comparaison = comparerAccidents(n, a);
@@ -86,8 +85,15 @@ Accident *insererAccident(Accident *a, Accident *n) {
         a->gauche = insererAccident(a->gauche, n);
     else if (comparaison > 0)
         a->droite = insererAccident(a->droite, n);
-    else
-        return a;
+    else{
+        while (n->vehicules != NULL){
+            Vehicule *v = n->vehicules;
+            n->vehicules = v->suivant;
+            v->suivant = a->vehicules;
+            a->vehicules = v;
+        }
+        free(n);
+    }
     return a;
 }
 
