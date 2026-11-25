@@ -293,11 +293,11 @@ int main(int argc, char** argv) {
         return 1;
     }*/
 
-    // char* nomFichier = "cy_crash_tech_big_sorted.csv";
+    //char* nomFichier = "cy_crash_tech_big_sorted.csv";
     char* nomFichier = "cy_crash_tech_big_shuffled.csv";
     // char* nomFichier = "cy_crash_tech_small_shuffled.csv";
     // char* nomFichier = "cy_crash_tech_small_sorted.csv";
-    // char* nomFichier = "cy_crash_tech_small2_shuffled.csv";
+    //char* nomFichier = "cy_crash_tech_small2_shuffled.csv";
     // char* nomFichier = "cy_crash_tech_small2_sorted.csv";
 
     /* char* nomFichier = argv[2]; */
