@@ -80,30 +80,32 @@ int comparerAccidents(Accident *a, Accident *b){
 Accident *insererAccident(Accident *a, Accident *n){
     if (a == NULL)
         return n;
-    int comparaison = comparerAccidents(n, a);
-    if (comparaison < 0)
+    if (n->cle < a->cle)
         a->gauche = insererAccident(a->gauche, n);
-    else if (comparaison > 0)
+    else if (n->cle > a->cle)
         a->droite = insererAccident(a->droite, n);
-    else{
-        while (n->vehicules != NULL){
-            Vehicule *v = n->vehicules;
-            n->vehicules = v->suivant;
-            v->suivant = a->vehicules;
-            a->vehicules = v;
-        }
-        free(n);
-    }
     return a;
 }
 
 
-Accident *rechercherAccident(Accident *a, long long cle) {
+Accident *obtenirAccident(Accident *a, long long cle) {
     if (a == NULL)
         return NULL;
     if (cle == a->cle)
         return a;
     if (cle < a->cle)
-        return rechercherAccident(a->gauche, cle);
-    return rechercherAccident(a->droite, cle);
+        return obtenirAccident(a->gauche, cle);
+    return obtenirAccident(a->droite, cle);
+}
+
+Vehicule *obtenirVehicule(Accident *a, int id) {
+    if (a == NULL)
+        return NULL;
+    Vehicule *v = a->vehicules;
+    while (v != NULL) {
+        if (v->vehicule_id == id)
+            return v;
+        v = v->suivant;
+    }
+    return NULL;
 }
