@@ -29,7 +29,6 @@ typedef struct Accident{
 }Accident;
 
 
-// Ajouter une victime au début de la liste
 Victime *ajouterVictime(Victime *liste, int age, int gender, int severity) {
     Victime *n = malloc(sizeof(Victime));
     if (n == NULL)
