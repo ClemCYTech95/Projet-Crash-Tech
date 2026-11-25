@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 
 typedef struct Victime{
     int age;
@@ -68,15 +69,6 @@ Accident *creerAccident(int year, int collision_id){
 }
 
 
-int comparerAccidents(Accident *a, Accident *b){
-    if (a->cle < b->cle)
-        return -1;
-    if (a->cle > b->cle)
-        return 1;
-    return 0;
-}
-
-
 Accident *insererAccident(Accident *a, Accident *n){
     if (a == NULL)
         return n;
@@ -98,7 +90,7 @@ Accident *obtenirAccident(Accident *a, long long cle) {
     return obtenirAccident(a->droite, cle);
 }
 
-Vehicule *obtenirVehicule(Accident *a, int id) {
+Vehicule *obtenirVehicule(Accident *a, int id){
     if (a == NULL)
         return NULL;
     Vehicule *v = a->vehicules;
@@ -108,4 +100,47 @@ Vehicule *obtenirVehicule(Accident *a, int id) {
         v = v->suivant;
     }
     return NULL;
+}
+
+void ajouterLigne(Accident **arbre, int year, int collision_id, int vehicule_id, int purpose, int age, int gender, int severity){
+    long long cle = year * 1000000LL + collision_id;
+    Accident *a = obtenirAccident(*arbre, cle);
+    if (a == NULL) {
+        a = creerAccident(year, collision_id);
+        if (a == NULL)
+            return;
+        *arbre = insererAccident(*arbre, a);
+    }
+    Vehicule *v = obtenirVehicule(a, vehicule_id);
+    if (v == NULL) {
+        Vehicule *ancienneListe = a->vehicules;
+        a->vehicules = ajouterVehicule(a->vehicules, vehicule_id, purpose);
+        if (a->vehicules == ancienneListe)
+            return;
+        v = a->vehicules;
+    }
+    Victime *ancienneListe = v->victimes;
+    v->victimes = ajouterVictime(v->victimes, age, gender, severity);
+    if (v->victimes == ancienneListe)
+        return;
+}
+
+void lireCSV(Accident **arbre){
+    FILE *fichier = fopen("Projet_Crash_Tech/Crashtest_small.csv", "r");
+    if (fichier == NULL) {
+        printf("Erreur ouverture fichier\n");
+        return;
+    }
+    char ligne[1024];
+    while (fgets(ligne, sizeof(ligne), fichier) != NULL) {
+        printf("%s", ligne);
+    }
+    fclose(fichier);
+}
+
+
+int main() {
+    Accident *arbre = NULL;
+    lireCSV(&arbre);
+    return 0;
 }
