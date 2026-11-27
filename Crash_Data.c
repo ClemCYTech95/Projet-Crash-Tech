@@ -106,7 +106,7 @@ void ajouterLigne(Accident **arbre, int annee, int collision_id, int vehicule_id
     long long cle = annee * 1000000LL + collision_id;
     Accident *a = obtenirAccident(*arbre, cle);
     if (a == NULL) {
-        a = creerAccident(year, collision_id);
+        a = creerAccident(annee, collision_id);
         if (a == NULL)
             return;
         *arbre = insererAccident(*arbre, a);
