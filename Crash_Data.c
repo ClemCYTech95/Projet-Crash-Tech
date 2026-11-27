@@ -125,8 +125,8 @@ void ajouterLigne(Accident **arbre, int annee, int collision_id, int vehicule_id
         return;
 }
 
-void lireCSV(Accident **arbre, char *nomFichier){
-    FILE *fichier = fopen("Projet_Crash_Tech/Crashtest_small.csv", "r");
+void lireCSV(Accident **arbre, char *nomFichier) {
+    FILE *fichier = fopen(nomFichier, "r");
     if (fichier == NULL) {
         printf("Erreur ouverture fichier\n");
         return;
@@ -135,20 +135,17 @@ void lireCSV(Accident **arbre, char *nomFichier){
     int annee, collision_id, vehicule_id;
     int location, user_type, gravite, genre;
     int annee_naissance, type_trajet;
-    
     while (fgets(ligne, sizeof(ligne), fichier) != NULL) {
-        int nb = sscanf(ligne, "%d;%d;%d;%d;%d;%d;%d;%d;%d", 
-        &annee, &collision_id, &vehicule_id, &location, 
-        &user_type, &gravite, &genre, &annee_naissance, &type_trajet);
+        int nb = sscanf(ligne, "%d;%d;%d;%d;%d;%d;%d;%d;%d", &annee, &collision_id, &vehicule_id, &location,
+            &user_type, &gravite, &genre, &annee_naissance, &type_trajet);
         if (nb != 9)
             continue;
-            int age = annee - annee_naissance;
-            ajouterLigne(arbre, annee, collision_id, vehicule_id, type_trajet, age, genre, gravite);
+        int age = annee - annee_naissance;
+        ajouterLigne(arbre, annee, collision_id, vehicule_id, type_trajet, age, genre, gravite);
         printf("%d %d %d %d %d %d %d %d %d\n",
-               annee, collision_id, vehicule_id,
-               location, user_type, gravite,
-               genre, annee_naissance, type_trajet);
-        }
+            annee, collision_id, vehicule_id, location,
+            user_type, gravite, genre, annee_naissance,
+            type_trajet);
     }
     fclose(fichier);
 }
