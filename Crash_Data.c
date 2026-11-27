@@ -125,7 +125,7 @@ void ajouterLigne(Accident **arbre, int annee, int collision_id, int vehicule_id
         return;
 }
 
-void lireCSV(Accident **arbre){
+void lireCSV(Accident **arbre, char *nomFichier){
     FILE *fichier = fopen("Projet_Crash_Tech/Crashtest_small.csv", "r");
     if (fichier == NULL) {
         printf("Erreur ouverture fichier\n");
