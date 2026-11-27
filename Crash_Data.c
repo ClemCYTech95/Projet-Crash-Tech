@@ -141,6 +141,6 @@ void lireCSV(Accident **arbre, char *nomFichier){
 
 int main() {
     Accident *arbre = NULL;
-    lireCSV(&arbre);
+    lireCSV(&arbre, "Projet_Crash_Tech/Crashtest_small.csv");
     return 0;
 }
