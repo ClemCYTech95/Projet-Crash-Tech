@@ -5,15 +5,15 @@
 
 typedef struct Victime{
     int age;
-    int gender;
-    int severity;
+    int genre;
+    int gravite;
     struct Victime *suivant;
 }Victime;
 
 
 typedef struct Vehicule{
     int vehicule_id;
-    int purpose;
+    int type_trajet;
     struct Victime *victimes;
     struct Vehicule *suivant;
 }Vehicule;
@@ -21,7 +21,7 @@ typedef struct Vehicule{
 
 typedef struct Accident{
     long long cle;
-    int year;
+    int annee;
     int collision_id;
     int hauteur;
     struct Vehicule *vehicules;
@@ -30,37 +30,37 @@ typedef struct Accident{
 }Accident;
 
 
-Victime *ajouterVictime(Victime *liste, int age, int gender, int severity){
+Victime *ajouterVictime(Victime *liste, int age, int genre, int gravite){
     Victime *n = malloc(sizeof(Victime));
     if (n == NULL)
         return liste;
     n->age = age;
-    n->gender = gender;
-    n->severity = severity;
+    n->genre = genre;
+    n->gravite = gravite;
     n->suivant = liste;
     return n;
 }
 
 
-Vehicule *ajouterVehicule(Vehicule *liste, int id, int purpose){
+Vehicule *ajouterVehicule(Vehicule *liste, int id, int type_trajet){
     Vehicule *n = malloc(sizeof(Vehicule));
     if (n == NULL)
         return liste;
     n->vehicule_id = id;
-    n->purpose = purpose;
+    n->type_trajet = type_trajet;
     n->victimes = NULL;
     n->suivant = liste;
     return n;
 }
 
 
-Accident *creerAccident(int year, int collision_id){
+Accident *creerAccident(int annee, int collision_id){
     Accident *n = malloc(sizeof(Accident));
     if (n == NULL)
         return NULL;
-    n->year = year;
+    n->annee = annee;
     n->collision_id = collision_id;
-    n->cle = year * 1000000LL + collision_id;
+    n->cle = annee * 1000000LL + collision_id;
     n->hauteur = 1;
     n->vehicules = NULL;
     n->gauche = NULL;
@@ -102,8 +102,8 @@ Vehicule *obtenirVehicule(Accident *a, int id){
     return NULL;
 }
 
-void ajouterLigne(Accident **arbre, int year, int collision_id, int vehicule_id, int purpose, int age, int gender, int severity){
-    long long cle = year * 1000000LL + collision_id;
+void ajouterLigne(Accident **arbre, int annee, int collision_id, int vehicule_id, int type_trajet, int age, int genre, int gravite){
+    long long cle = annee * 1000000LL + collision_id;
     Accident *a = obtenirAccident(*arbre, cle);
     if (a == NULL) {
         a = creerAccident(year, collision_id);
@@ -114,13 +114,13 @@ void ajouterLigne(Accident **arbre, int year, int collision_id, int vehicule_id,
     Vehicule *v = obtenirVehicule(a, vehicule_id);
     if (v == NULL) {
         Vehicule *ancienneListe = a->vehicules;
-        a->vehicules = ajouterVehicule(a->vehicules, vehicule_id, purpose);
+        a->vehicules = ajouterVehicule(a->vehicules, vehicule_id, type_trajet);
         if (a->vehicules == ancienneListe)
             return;
         v = a->vehicules;
     }
     Victime *ancienneListe = v->victimes;
-    v->victimes = ajouterVictime(v->victimes, age, gender, severity);
+    v->victimes = ajouterVictime(v->victimes, age, genre, gravite);
     if (v->victimes == ancienneListe)
         return;
 }
