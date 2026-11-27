@@ -132,8 +132,23 @@ void lireCSV(Accident **arbre, char *nomFichier){
         return;
     }
     char ligne[1024];
+    int annee, collision_id, vehicule_id;
+    int location, user_type, gravite, genre;
+    int annee_naissance, type_trajet;
+    
     while (fgets(ligne, sizeof(ligne), fichier) != NULL) {
-        printf("%s", ligne);
+        int nb = sscanf(ligne, "%d;%d;%d;%d;%d;%d;%d;%d;%d", 
+        &annee, &collision_id, &vehicule_id, &location, 
+        &user_type, &gravite, &genre, &annee_naissance, &type_trajet);
+        if (nb != 9)
+            continue;
+            int age = annee - annee_naissance;
+            ajouterLigne(arbre, annee, collision_id, vehicule_id, type_trajet, age, genre, gravite);
+        printf("%d %d %d %d %d %d %d %d %d\n",
+               annee, collision_id, vehicule_id,
+               location, user_type, gravite,
+               genre, annee_naissance, type_trajet);
+        }
     }
     fclose(fichier);
 }
